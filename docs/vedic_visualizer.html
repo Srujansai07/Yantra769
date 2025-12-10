@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yantra769 - Vedic Multiplier Visualizer</title>
+    <style>
+        :root {
+            --primary: #ff6b35;
+            --secondary: #f7c59f;
+            --accent: #efefd0;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --gold: #ffd700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            color: var(--accent);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--gold), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        
+        .om-symbol {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,107,53,0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .input-box {
+            flex: 1;
+        }
+        
+        label {
+            display: block;
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(255,107,53,0.3);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.3);
+            color: var(--accent);
+            font-size: 1.2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255,107,53,0.3);
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--primary), #ff8c5a);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,107,53,0.4);
+        }
+        
+        .result-display {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .result-value {
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: bold;
+        }
+        
+        .visualization-area {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .step-box {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid var(--primary);
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .step-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .step-content {
+            font-family: 'Consolas', monospace;
+            color: var(--secondary);
+        }
+        
+        .highlight {
+            color: var(--gold);
+            font-weight: bold;
+        }
+        
+        .yantra-svg {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .info-section {
+            margin-top: 30px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
+        
+        .info-card {
+            background: rgba(255,215,0,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+        
+        .info-card h3 {
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
+        .info-card p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .percentage {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="om-symbol">🕉️</div>
+            <h1>Yantra769 Visualizer</h1>
+            <p class="subtitle">Urdhva Tiryagbhyam (ऊर्ध्व तिर्यग्भ्याम्) - Vertically & Crosswise</p>
+        </header>
+        
+        <div class="main-grid">
+            <div class="card">
+                <h2>🔢 Vedic Multiplier Calculator</h2>
+                
+                <div class="input-group">
+                    <div class="input-box">
+                        <label>Multiplicand (A)</label>
+                        <input type="number" id="inputA" value="12" min="0" max="255">
+                    </div>
+                    <div class="input-box">
+                        <label>Multiplier (B)</label>
+                        <input type="number" id="inputB" value="34" min="0" max="255">
+                    </div>
+                </div>
+                
+                <button onclick="calculate()">⚡ Calculate with Vedic Method</button>
+                
+                <div class="result-display">
+                    <div>Result</div>
+                    <div class="result-value" id="result">408</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📊 Step-by-Step Visualization</h2>
+                <div class="visualization-area" id="steps">
+                    <!-- Steps will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>⚡ Speed Improvement</h3>
+                    <div class="percentage">20-45%</div>
+                    <p>Faster than conventional multipliers due to parallel processing</p>
+                </div>
+                <div class="info-card">
+                    <h3>🔋 Power Savings</h3>
+                    <div class="percentage">~30%</div>
+                    <p>Lower power consumption through reduced gate switching</p>
+                </div>
+                <div class="info-card">
+                    <h3>📐 Area Reduction</h3>
+                    <div class="percentage">20-45%</div>
+                    <p>Smaller chip area with regular VLSI structure</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function calculate() {
+            const a = parseInt(document.getElementById('inputA').value) || 0;
+            const b = parseInt(document.getElementById('inputB').value) || 0;
+            const result = a * b;
+            
+            document.getElementById('result').textContent = result;
+            
+            // Generate step-by-step visualization
+            generateSteps(a, b);
+        }
+        
+        function generateSteps(a, b) {
+            const stepsContainer = document.getElementById('steps');
+            stepsContainer.innerHTML = '';
+            
+            // Convert to digits (pad to at least 2 digits)
+            const aStr = a.toString().padStart(2, '0');
+            const bStr = b.toString().padStart(2, '0');
+            
+            const aDigits = aStr.split('').map(Number);
+            const bDigits = bStr.split('').map(Number);
+            
+            // For simplicity, show 2-digit × 2-digit visualization
+            if (a < 100 && b < 100) {
+                const a1 = Math.floor(a / 10), a0 = a % 10;
+                const b1 = Math.floor(b / 10), b0 = b % 10;
+                
+                // Step 1: Vertical Right
+                const step1 = a0 * b0;
+                addStep('Step 1: Vertical (Right)', 
+                    `${a0} × ${b0} = <span class="highlight">${step1}</span>`,
+                    'Units digit: ' + (step1 % 10) + ', Carry: ' + Math.floor(step1 / 10));
+                
+                // Step 2: Crosswise
+                const cross1 = a1 * b0;
+                const cross2 = a0 * b1;
+                const step2 = cross1 + cross2 + Math.floor(step1 / 10);
+                addStep('Step 2: Crosswise (Middle)', 
+                    `(${a1} × ${b0}) + (${a0} × ${b1}) = ${cross1} + ${cross2} = <span class="highlight">${cross1 + cross2}</span>`,
+                    'With carry: ' + step2 + ' → Tens digit: ' + (step2 % 10));
+                
+                // Step 3: Vertical Left
+                const step3 = a1 * b1 + Math.floor(step2 / 10);
+                addStep('Step 3: Vertical (Left)', 
+                    `${a1} × ${b1} = <span class="highlight">${a1 * b1}</span>`,
+                    'With carry: ' + step3 + ' → Hundreds: ' + step3);
+                
+                // Final Result
+                addStep('✨ Final Result', 
+                    `<span class="highlight">${a} × ${b} = ${a * b}</span>`,
+                    'Computed in parallel steps!');
+            } else {
+                addStep('Large Number Mode', 
+                    `${a} × ${b} = <span class="highlight">${a * b}</span>`,
+                    'For numbers > 99, the algorithm cascades through 4+ digit chunks');
+            }
+        }
+        
+        function addStep(title, content, detail) {
+            const stepsContainer = document.getElementById('steps');
+            const stepDiv = document.createElement('div');
+            stepDiv.className = 'step-box';
+            stepDiv.style.animationDelay = (stepsContainer.children.length * 0.1) + 's';
+            stepDiv.innerHTML = `
+                <div class="step-title">${title}</div>
+                <div class="step-content">${content}</div>
+                ${detail ? `<div class="step-content" style="margin-top:5px;font-size:0.85rem;opacity:0.8">${detail}</div>` : ''}
+            `;
+            stepsContainer.appendChild(stepDiv);
+        }
+        
+        // Initial calculation
+        calculate();
+        
+        // Auto-calculate on input change
+        document.getElementById('inputA').addEventListener('input', calculate);
+        document.getElementById('inputB').addEventListener('input', calculate);
+    </script>
+</body>
+</html>

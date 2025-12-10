@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-11 01:37:18",
+  "config": {
+    "num_nodes": 2000,
+    "resonance_cycles": 1000,
+    "target_accuracy": 0.95,
+    "om_frequency": 136.1
+  },
+  "results": [
+    {
+      "name": "Signal Path Length",
+      "standard_value": 29.333333333333332,
+      "sivaa_value": 5.166127063531766,
+      "improvement_percent": 82.38820319250534,
+      "metric_unit": " hops"
+    },
+    {
+      "name": "Energy Consumption",
+      "standard_value": 1000.0,
+      "sivaa_value": 95.75359777193957,
+      "improvement_percent": 90.42464022280605,
+      "metric_unit": " J"
+    },
+    {
+      "name": "Convergence Speed",
+      "standard_value": 190,
+      "sivaa_value": 152,
+      "improvement_percent": 20.0,
+      "metric_unit": " cycles"
+    }
+  ]
+}

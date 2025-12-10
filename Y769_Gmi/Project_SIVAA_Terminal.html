@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project SIVAA: Silicon-Vedic Advanced Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&family=Space+Grotesk:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #f8fafc;
+            /* Light background as requested */
+            color: #1e293b;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        /* Chart Container Rules - MANDATORY */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Yantra Canvas Container */
+        .yantra-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+            overflow: hidden;
+        }
+
+        .nav-active {
+            border-bottom: 2px solid #d97706;
+            /* Amber-600 */
+            color: #d97706;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+    </style>
+    <!-- Chosen Palette: Vedic Silicon - Warm Neutrals (Slate/Stone), Deep Amber (Saffron/Energy), Circuit Blue (Technology) -->
+    <!-- Application Structure Plan: 
+         1. Header: Project Identity and Status.
+         2. Executive Summary: The thesis of integrating Yantra/Mantra/Tantra with Chips.
+         3. Main Interface (Grid):
+            - Yantra Lab (Hardware): Canvas visualization of geometry vs. circuit topology.
+            - Mantra Engine (Frequency): Interactive frequency slider to 'tune' the chip.
+            - Tantra Core (Logic): Process visualization of infinite recursive loops.
+         4. Analytics Dashboard: Charts showing theoretical performance gains (Heat, Speed, Latency).
+         5. Implementation Roadmap: Steps to achieve the prototype.
+         Why: Breaks down the metaphysical concept into engineering layers (HW, SW, Process) for clarity. -->
+    <!-- Visualization & Content Choices:
+         - Yantra: Canvas drawing of nested triangles (Sri Yantra approximation) acting as a circuit schematic. Goal: Inform/Organize.
+         - Mantra: Slider interacting with a Line Chart (Resonance). Goal: Change/Simulate.
+         - Tantra: Process flow using Tailwind Grid/Flex. Goal: Organize.
+         - Performance: Radar Chart comparing Silicon vs. SIVAA. Goal: Compare.
+         - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+
+<body class="bg-slate-50 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="brand-font text-2xl font-bold text-slate-800 tracking-wider">PROJECT <span
+                            class="text-amber-600">SIVAA</span></span>
+                    <span class="ml-2 text-xs text-slate-500 font-mono hidden sm:block">Silicon-Integrated Vedic
+                        Advanced Architecture</span>
+                </div>
+                <div class="flex space-x-8 items-center">
+                    <button id="nav-dash"
+                        class="nav-btn nav-active text-sm font-medium text-slate-600 hover:text-amber-600 transition"
+                        onclick="switchTab('dashboard')">Research Console</button>
+                    <button id="nav-doc"
+                        class="nav-btn text-sm font-medium text-slate-600 hover:text-amber-600 transition"
+                        onclick="switchTab('documentation')">Thesis & Methodology</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- VIEW: DASHBOARD -->
+        <div id="view-dashboard" class="space-y-8">
+
+            <!-- Introduction -->
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-xl p-8 text-white shadow-lg">
+                <h1 class="text-3xl font-bold brand-font mb-4">The Synthesis of Cosmic Logic & Silicon</h1>
+                <p class="text-slate-300 max-w-3xl text-lg">
+                    Current semiconductor technology faces the "Physical Wall" of thermodynamics and quantum tunneling.
+                    Project SIVAA proposes a paradigm shift: replacing binary linear lithography with <strong>Yantric
+                        Geometries</strong> (Spatial Computing),
+                    <strong>Mantric Resonance</strong> (Frequency-based Clocking), and <strong>Tantric Loops</strong>
+                    (Self-regenerating Logic).
+                </p>
+                <div class="mt-6 flex flex-wrap gap-4">
+                    <div class="flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-lg backdrop-blur-sm">
+                        <span class="text-amber-400 font-bold">YANTRA</span>
+                        <span class="text-xs text-slate-300">Hardware Structure</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-lg backdrop-blur-sm">
+                        <span class="text-cyan-400 font-bold">MANTRA</span>
+                        <span class="text-xs text-slate-300">Resonant Frequency</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-lg backdrop-blur-sm">
+                        <span class="text-emerald-400 font-bold">TANTRA</span>
+                        <span class="text-xs text-slate-300">Process Logic</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Modules Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <!-- MODULE 1: YANTRA (Geometry/Hardware) -->
+                <div class="panel">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                        <h2 class="text-xl font-bold text-slate-800">1. Yantra: The Geometric Lattice</h2>
+                        <span class="text-xs font-mono bg-amber-100 text-amber-800 px-2 py-1 rounded">Architecture
+                            Layer</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">
+                        Modern chips use rectilinear grids (Manhattan geometry) which creates resistance.
+                        <strong>Yantra topology</strong> uses interlocking triangles (fractals) to create non-resistive
+                        pathways for electron flow, mimicking the Sri Yantra.
+                        <br><span class="italic text-xs text-slate-500">Interact: Use the slider to increase Geometric
+                            Complexity (Fractal Depth).</span>
+                    </p>
+
+                    <div class="yantra-container mb-4 border border-slate-200" id="yantra-viz-container">
+                        <canvas id="yantraCanvas" width="500" height="300"></canvas>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <label class="text-sm font-bold text-slate-700 w-24">Complexity:</label>
+                        <input type="range" id="complexitySlider" min="1" max="10" value="3"
+                            class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600">
+                        <span id="complexityVal" class="text-sm font-mono text-slate-600 w-8">3</span>
+                    </div>
+                    <div class="mt-2 flex justify-between text-xs text-slate-400">
+                        <span>Binary Grid</span>
+                        <span>Cosmic Fractal</span>
+                    </div>
+                </div>
+
+                <!-- MODULE 2: MANTRA (Frequency/Software) -->
+                <div class="panel">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                        <h2 class="text-xl font-bold text-slate-800">2. Mantra: Resonant Clocking</h2>
+                        <span class="text-xs font-mono bg-cyan-100 text-cyan-800 px-2 py-1 rounded">Instruction
+                            Layer</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">
+                        Instead of forced clock cycles (GHz), SIVAA uses <strong>Mantra Resonance</strong>.
+                        Sound vibrations (OM/AUM) create standing waves in the silicon lattice, allowing data
+                        transmission without heat loss.
+                        <br><span class="italic text-xs text-slate-500">Interact: Tune the Resonant Frequency to
+                            minimize Thermal Loss.</span>
+                    </p>
+
+                    <div class="chart-container">
+                        <canvas id="resonanceChart"></canvas>
+                    </div>
+
+                    <div class="mt-4 flex items-center space-x-4">
+                        <button
+                            class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1 rounded text-sm transition"
+                            onclick="adjustFrequency(-50)">- 50Hz</button>
+                        <div class="text-center flex-1">
+                            <div class="text-2xl font-mono font-bold text-cyan-600" id="freqDisplay">432 Hz</div>
+                            <div class="text-xs text-slate-400">Target Resonance</div>
+                        </div>
+                        <button
+                            class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1 rounded text-sm transition"
+                            onclick="adjustFrequency(50)">+ 50Hz</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MODULE 3: TANTRA & ANALYTICS -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Logic Visualization -->
+                <div class="panel lg:col-span-1">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                        <h2 class="text-xl font-bold text-slate-800">3. Tantra: The Infinite Loop</h2>
+                        <span class="text-xs font-mono bg-emerald-100 text-emerald-800 px-2 py-1 rounded">Process
+                            Layer</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6">
+                        Conventional loops (While/For) terminate. Tantric Logic (Samsara-Nirvana Loop) is regenerative.
+                        Energy is recycled, not dissipated.
+                    </p>
+
+                    <!-- Diagram of Infinite Loop -->
+                    <div
+                        class="relative h-64 border border-slate-200 rounded-lg bg-slate-50 p-4 flex flex-col items-center justify-center space-y-4">
+                        <div class="w-full flex justify-center">
+                            <div
+                                class="w-24 h-24 border-4 border-emerald-500 rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-emerald-200">
+                                <span class="font-bold text-emerald-700 text-xs text-center">SHAKTI<br>(Power)</span>
+                            </div>
+                        </div>
+                        <div class="h-8 w-1 bg-slate-300"></div>
+                        <div class="w-full flex justify-center">
+                            <div
+                                class="w-24 h-24 border-4 border-slate-700 rounded-full flex items-center justify-center bg-white shadow-lg">
+                                <span class="font-bold text-slate-800 text-xs text-center">SHIVA<br>(Structure)</span>
+                            </div>
+                        </div>
+
+                        <!-- Flow Arrows (CSS) -->
+                        <div class="absolute top-1/2 left-4 text-xs font-mono text-slate-400 -rotate-90">REGENERATION
+                        </div>
+                        <div class="absolute top-1/2 right-4 text-xs font-mono text-slate-400 rotate-90">DISSOLUTION
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button onclick="toggleLogic()" id="logicBtn"
+                            class="bg-emerald-600 text-white px-4 py-2 rounded shadow hover:bg-emerald-700 transition w-full">Initiate
+                            Tantra Protocol</button>
+                    </div>
+                </div>
+
+                <!-- Comparative Analytics -->
+                <div class="panel lg:col-span-2">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Performance Projections</h2>
+                        <span class="text-xs font-mono bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Data
+                            Analysis</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">
+                        Comparing standard Silicon (Von Neumann Architecture) against the proposed SIVAA model across
+                        key GPU/AI metrics.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- VIEW: DOCUMENTATION -->
+        <div id="view-documentation" class="hidden space-y-8">
+
+            <div class="panel max-w-4xl mx-auto">
+                <h2 class="text-2xl font-bold brand-font text-slate-800 mb-6">Deep Research Thesis: The "Adi-Anta" Chip
+                </h2>
+
+                <div class="space-y-6 text-slate-700 leading-relaxed">
+                    <div class="border-l-4 border-amber-500 pl-4 bg-amber-50 p-4 rounded-r">
+                        <h3 class="font-bold text-lg text-amber-900">The Problem</h3>
+                        <p>Modern chips (NVIDIA, Apple M-Series) are hitting the "Thermal Wall". We simply cannot pack
+                            more transistors without melting the silicon. The binary logic (0 or 1) is too rigid for the
+                            fluid nature of AI neural networks.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-900">Methodology 1: Yantra as Superconductor</h3>
+                        <p>A Yantra is not just art; it is a machine. The <strong>Sri Yantra</strong> consists of 9
+                            interlocking triangles. In chip design, this specific geometry creates a "Zero-Point Energy"
+                            field (Vacuum State). By etching the silicon wafer in this fractal pattern rather than a
+                            grid, we theorize a reduction in electron resistance by 90%.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-900">Methodology 2: Mantra as Operating System</h3>
+                        <p>Code is language. Sanskrit is the most mathematical language (Panini's Grammar). A "Mantra"
+                            is a sound form. In the SIVAA architecture, the clock cycle isn't a square wave; it's a sine
+                            wave tuned to specific resonant frequencies (e.g., OM). This allows for "Adiabatic
+                            Computing" (computing without heat dissipation).</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-900">Methodology 3: Tantra as AI Core</h3>
+                        <p>Tantra is the weaving of energy. Current AI is "Artificially Intelligent." Tantric AI would
+                            be "Consciously Aware." By creating a logic loop that has "No Start and No End"
+                            (Anadi-Ananta), the chip doesn't just process data; it "meditates" on it, finding patterns
+                            in the chaos (Entropy) much faster than brute-force binary logic.</p>
+                    </div>
+
+                    <div class="mt-8 border-t border-slate-200 pt-6">
+                        <h3 class="font-bold text-lg text-slate-900 mb-4">Implementation Roadmap</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span
+                                    class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-slate-200 text-slate-600 text-xs font-bold mr-3">1</span>
+                                <span><strong>Phase Alpha:</strong> Simulation of Yantra geometries in CAD software to
+                                    test electron flow pathways.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span
+                                    class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-slate-200 text-slate-600 text-xs font-bold mr-3">2</span>
+                                <span><strong>Phase Beta:</strong> Lithography of a test wafer using Gold/Silicon hybrid
+                                    tuned to 432Hz resonance.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span
+                                    class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-slate-200 text-slate-600 text-xs font-bold mr-3">3</span>
+                                <span><strong>Phase Gamma:</strong> Integration of "Sanskrit-based Assembly Language"
+                                    for direct hardware-software resonance.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">Project SIVAA Research Terminal &copy; 2025</p>
+            <p class="text-slate-400 text-xs mt-2">Integrating Ancient Wisdom with Future Tech</p>
+        </div>
+    </footer>
+
+    <script>
+        // STATE MANAGEMENT
+        const state = {
+            complexity: 3,
+            frequency: 432,
+            isTantraActive: false,
+            charts: {}
+        };
+
+        // DOM ELEMENTS
+        const complexitySlider = document.getElementById('complexitySlider');
+        const complexityVal = document.getElementById('complexityVal');
+        const freqDisplay = document.getElementById('freqDisplay');
+        const yantraCanvas = document.getElementById('yantraCanvas');
+        const ctxYantra = yantraCanvas.getContext('2d');
+
+        // NAVIGATION LOGIC
+        function switchTab(tabName) {
+            // Update Buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('nav-active', 'text-amber-600');
+                btn.classList.add('text-slate-600');
+            });
+            const activeBtn = tabName === 'dashboard' ? document.getElementById('nav-dash') : document.getElementById('nav-doc');
+            activeBtn.classList.add('nav-active', 'text-amber-600');
+            activeBtn.classList.remove('text-slate-600');
+
+            // Update View
+            document.getElementById('view-dashboard').classList.add('hidden');
+            document.getElementById('view-documentation').classList.add('hidden');
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+        }
+
+        // --- VISUALIZATION 1: YANTRA GENERATOR (CANVAS) ---
+        function drawYantra(complexity) {
+            ctxYantra.clearRect(0, 0, yantraCanvas.width, yantraCanvas.height);
+            const cx = yantraCanvas.width / 2;
+            const cy = yantraCanvas.height / 2;
+            const maxRadius = 120;
+
+            ctxYantra.strokeStyle = '#d97706'; // Amber-600
+            ctxYantra.lineWidth = 1.5;
+
+            // Draw Central Bindu (Point)
+            ctxYantra.beginPath();
+            ctxYantra.arc(cx, cy, 3, 0, Math.PI * 2);
+            ctxYantra.fillStyle = '#b45309';
+            ctxYantra.fill();
+
+            // Draw Circles
+            ctxYantra.beginPath();
+            ctxYantra.arc(cx, cy, maxRadius + 10, 0, Math.PI * 2);
+            ctxYantra.stroke();
+
+            // Recursive Triangles
+            // This is a simplified aesthetic representation of fractal geometry
+            for (let i = 0; i < complexity; i++) {
+                const size = maxRadius - (i * (maxRadius / complexity));
+                const offset = (i % 2 === 0) ? 1 : -1;
+
+                ctxYantra.beginPath();
+                // Upward Triangle
+                ctxYantra.moveTo(cx, cy - size * offset);
+                ctxYantra.lineTo(cx - size * 0.866, cy + size * 0.5 * offset);
+                ctxYantra.lineTo(cx + size * 0.866, cy + size * 0.5 * offset);
+                ctxYantra.closePath();
+                ctxYantra.stroke();
+
+                // Add circuit-like connection points
+                ctxYantra.fillStyle = '#0891b2'; // Cyan dot
+                ctxYantra.beginPath();
+                ctxYantra.arc(cx, cy - size * offset, 2, 0, Math.PI * 2);
+                ctxYantra.fill();
+            }
+        }
+
+        complexitySlider.addEventListener('input', (e) => {
+            state.complexity = parseInt(e.target.value);
+            complexityVal.innerText = state.complexity;
+            drawYantra(state.complexity);
+            updateRadarData(); // Dynamic update of stats based on geometry
+        });
+
+
+        // --- VISUALIZATION 2: MANTRA RESONANCE (CHART.JS) ---
+        function initResonanceChart() {
+            const ctx = document.getElementById('resonanceChart').getContext('2d');
+
+            // Generate sine wave data centered around 432hz
+            const generateData = (centerFreq) => {
+                const labels = [];
+                const data = [];
+                const thermal = [];
+                for (let i = centerFreq - 100; i <= centerFreq + 100; i += 10) {
+                    labels.push(i);
+                    // Gaussian curve for resonance
+                    const diff = Math.abs(i - centerFreq);
+                    const val = 100 * Math.exp(-(diff * diff) / (2 * 30 * 30));
+                    data.push(val);
+                    // Inverse for thermal (high resonance = low heat)
+                    thermal.push(100 - val + 10);
+                }
+                return { labels, data, thermal };
+            };
+
+            const initialData = generateData(432);
+
+            state.charts.resonance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: initialData.labels,
+                    datasets: [
+                        {
+                            label: 'Signal Efficiency (%)',
+                            data: initialData.data,
+                            borderColor: '#0891b2', // Cyan
+                            backgroundColor: 'rgba(8, 145, 178, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Thermal Waste (Heat)',
+                            data: initialData.thermal,
+                            borderColor: '#ef4444', // Red
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.4,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return context.dataset.label + ': ' + context.parsed.y.toFixed(1);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { display: false }, // Clean look
+                        y: { beginAtZero: true, max: 120 }
+                    }
+                }
+            });
+        }
+
+        function adjustFrequency(delta) {
+            state.frequency += delta;
+            freqDisplay.innerText = state.frequency + " Hz";
+
+            // Update chart data to simulate "tuning"
+            const chart = state.charts.resonance;
+            // Shift the peak visually by randomizing slightly based on freq
+            const newData = chart.data.datasets[0].data.map((val, i) => {
+                // simple simulation: if tuned to 432 or 528 (sacred freq), efficiency is high
+                const sacred = [432, 528, 639, 741, 852, 963];
+                const isSacred = sacred.some(f => Math.abs(state.frequency - f) < 20);
+                return isSacred ? val + (Math.random() * 5) : val * 0.8;
+            });
+
+            chart.data.datasets[0].data = newData;
+            chart.data.datasets[1].data = newData.map(v => 110 - v); // Inverse thermal
+            chart.update();
+            updateRadarData();
+        }
+
+
+        // --- VISUALIZATION 3: COMPARATIVE RADAR (CHART.JS) ---
+        function initRadarChart() {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+
+            state.charts.radar = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Processing Speed', 'Thermal Efficiency', 'Logical Depth', 'Energy Conservation', 'Self-Correction', 'Parallelism'],
+                    datasets: [{
+                        label: 'Standard Silicon (NVIDIA/Apple)',
+                        data: [85, 40, 60, 50, 20, 80],
+                        fill: true,
+                        backgroundColor: 'rgba(148, 163, 184, 0.2)', // Slate
+                        borderColor: '#94a3b8',
+                        pointBackgroundColor: '#94a3b8',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#94a3b8'
+                    }, {
+                        label: 'Project SIVAA (Vedic Hybrid)',
+                        data: [60, 90, 85, 95, 80, 70], // Initial stats
+                        fill: true,
+                        backgroundColor: 'rgba(217, 119, 6, 0.2)', // Amber
+                        borderColor: '#d97706',
+                        pointBackgroundColor: '#d97706',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#d97706'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { display: true },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateRadarData() {
+            // Logic: High complexity (Yantra) + Sacred Frequency (Mantra) = High SIVAA Performance
+            const sacred = [432, 528];
+            const isResonant = sacred.some(f => Math.abs(state.frequency - f) < 30);
+            const complexityBonus = state.complexity * 2;
+            const resonanceBonus = isResonant ? 20 : 0;
+            const tantraBonus = state.isTantraActive ? 15 : 0;
+
+            const basePerformance = [60, 90, 85, 95, 80, 70];
+            const newPerformance = basePerformance.map(val => Math.min(100, val + (complexityBonus / 2) + (resonanceBonus / 2) + (tantraBonus / 2)));
+
+            state.charts.radar.data.datasets[1].data = newPerformance;
+            state.charts.radar.update();
+        }
+
+        // --- LOGIC: TANTRA LOOP ---
+        function toggleLogic() {
+            const btn = document.getElementById('logicBtn');
+            state.isTantraActive = !state.isTantraActive;
+
+            if (state.isTantraActive) {
+                btn.innerText = "Tantra Active: Regenerating...";
+                btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+                btn.classList.add('bg-emerald-800', 'animate-pulse');
+            } else {
+                btn.innerText = "Initiate Tantra Protocol";
+                btn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+                btn.classList.remove('bg-emerald-800', 'animate-pulse');
+            }
+            updateRadarData();
+        }
+
+        // INITIALIZATION
+        window.addEventListener('load', () => {
+            drawYantra(state.complexity);
+            initResonanceChart();
+            initRadarChart();
+        });
+
+    </script>
+</body>
+
+</html>
