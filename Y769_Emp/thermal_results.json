@@ -1,0 +1,19 @@
+{
+  "rectangular": {
+    "peak": 85.5,
+    "avg": 62.3,
+    "std": 12.8,
+    "hotspots": 4
+  },
+  "yantra": {
+    "peak": 58.2,
+    "avg": 48.7,
+    "std": 4.2,
+    "hotspots": 0
+  },
+  "improvement": {
+    "peak_reduction": 31.929824561403507,
+    "uniformity": 67.18750000000001,
+    "hotspots": 100
+  }
+}

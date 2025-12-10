@@ -1,0 +1,16 @@
+{
+  "simulation_parameters": {
+    "grid_size": 200,
+    "die_size_mm": 20.0,
+    "power_density_w_mm2": 0.5,
+    "thermal_conductivity_si": 148.0,
+    "thermal_conductivity_cu": 401.0
+  },
+  "metrics": {
+    "rectangular": {
+      "max_temp_C": NaN,
+      "min_temp_C": NaN,
+      "avg_temp_C": NaN,
+      "std_temp_C": NaN,
+      "temp_range_C": NaN,
+      "hotspot_count": 
