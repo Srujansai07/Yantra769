@@ -10,7 +10,7 @@ Complete thermal analysis with real semiconductor physics:
 - Hotspot detection
 - Comparison with rectangular layout
 
-Author: Division Zero Research
+Author: SIVAA Research
 Physics: Real semiconductor thermal modeling
 """
 

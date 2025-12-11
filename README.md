@@ -118,6 +118,6 @@ See [Execution Guide](Y769_Emp/Emp_6_Execution_Guide.md) for full roadmap.
 
 ## License
 
-Open Source for Research - Division Zero
+Open Source for Research - SIVAA Project / Srujansai
 
 *December 2025 - Validated & Ready for Fabrication*

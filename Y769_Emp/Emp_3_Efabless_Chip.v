@@ -14,7 +14,7 @@
  * Process: SkyWater SKY130 (130nm)
  * Die Size: 10mm x 10mm (MPW limit)
  * 
- * Author: Division Zero Research
+ * Author: SIVAA Research
  * License: Apache 2.0 (required for Efabless)
  */
 

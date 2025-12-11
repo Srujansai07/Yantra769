@@ -11,7 +11,7 @@ This simulation implements:
 4. Yantra vs Rectangular comparison
 5. JSON output for paper publication
 
-Author: Division Zero Research
+Author: SIVAA Research
 Date: December 2025
 """
 

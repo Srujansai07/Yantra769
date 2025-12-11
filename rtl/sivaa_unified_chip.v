@@ -16,7 +16,7 @@
  * 6. Temperature Sensors
  * 
  * Target: Efabless chipIgnite / Sky130 (130nm)
- * Author: Division Zero Research
+ * Author: SIVAA Research
  * License: Apache 2.0
  */
 

@@ -4,7 +4,7 @@
 
 **Status:** ACTIVE RESEARCH WITH PROVEN COMPONENTS  
 **Date:** December 2025  
-**Prepared For:** Division Zero Initiative
+**Prepared For:** SIVAA Project
 
 ---
 

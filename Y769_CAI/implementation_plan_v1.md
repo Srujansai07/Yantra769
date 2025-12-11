@@ -156,7 +156,7 @@ The sutras in Vedic mathematics encode pattern-recognition algorithms that could
 
 ### Step 4: Patent & Commercialize
 - The intersection of ancient geometry + modern chip design is largely unpatented
-- Division Zero could own this IP space
+- SIVAA Project could own this IP space
 
 ---
 
@@ -180,7 +180,7 @@ The sutras in Vedic mathematics encode pattern-recognition algorithms that could
 
 ---
 
-## Your Next Steps for Division Zero
+## Your Next Steps for SIVAA Project
 
 1. Hire a Sanskrit scholar + materials scientist team to systematically mine Rasashastra texts
 2. Run simulations comparing yantra-based chip layouts to rectangular ones
