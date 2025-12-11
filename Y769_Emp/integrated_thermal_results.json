@@ -1,0 +1,25 @@
+{
+  "rectangular": {
+    "max_temp_C": 26.85000040540541,
+    "min_temp_C": 26.850000000000023,
+    "avg_temp_C": 26.850000070201247,
+    "std_temp_C": 6.955711678498063e-08,
+    "temp_range_C": 4.0540538748246036e-07,
+    "hotspot_count": 182
+  },
+  "yantra": {
+    "max_temp_C": 26.850000844594604,
+    "min_temp_C": 26.850000000000023,
+    "avg_temp_C": 26.850000048726145,
+    "std_temp_C": 1.257212868736291e-07,
+    "temp_range_C": 8.445945809398836e-07,
+    "hotspot_count": 392
+  },
+  "improvement": {
+    "max_temp_reduction_C": -4.3918919345742324e-07,
+    "max_temp_reduction_pct": -1.6357139174158305e-06,
+    "uniformity_improvement_pct": -80.74539699836424,
+    "range_reduction_pct": -108.33333917557385,
+    "hotspot_reduction_pct": -115.38461538461537
+  }
+}
