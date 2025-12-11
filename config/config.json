@@ -1,0 +1,23 @@
+{
+    "DESIGN_NAME": "sivaa_unified_chip",
+    "VERILOG_FILES": [
+        "dir::rtl/sivaa_unified_chip.v"
+    ],
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 20.0,
+    "DIE_AREA": "0 0 10000 10000",
+    "FP_CORE_UTIL": 40,
+    "PL_TARGET_DENSITY": 0.5,
+    "FP_PDN_CHECK_NODES": 0,
+    "DESIGN_IS_CORE": 0,
+    "VDD_PIN": "VPWR",
+    "GND_PIN": "VGND",
+    "ROUTING_CORES": 4,
+    "PDN_CFG": "dir::config/pdn.tcl",
+    "LVS_CONNECT_BY_LABEL": 1,
+    "RUN_CVC": 0,
+    "GPL_CELL_PADDING": 0,
+    "DPL_CELL_PADDING": 2,
+    "CELL_PAD": 4,
+    "GLB_RT_ALLOW_CONGESTION": 1
+}
